@@ -5,16 +5,17 @@ if [[ ${ARCH} == "64" ]]; then
     export ARCH=x86_64
 fi
 
-# Remove the static library from being installed
-sed -i 's/libhugetlbfs.a//g' Makefile
-
 # We only bulid native, so we want this to go to the correct location
 # The location is lib, nomatter what
 # The Makefile concatenates this with the PREFIX environment variable
 export LIB64=lib
 export LIB32=lib
-
 export BUILDTYPE=NATIVEONLY
+
+# Generate configure script and Makefile
+autoreconf --install
+./configure
+
 # Make library and tools, but not tests
 make libs tools -j${CPU_COUNT}
 
