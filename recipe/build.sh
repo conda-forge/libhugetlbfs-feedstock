@@ -1,3 +1,4 @@
+set -ex
 # The Makefile checks for the ARCH variable
 # and expects it to be one of a few known values
 # x86_64 is expected to be specified as 64
@@ -21,3 +22,5 @@ make libs tools -j${CPU_COUNT}
 
 # Do not install man pages
 make install-libs install-bin
+
+rm ${PREFIX}/lib/libhugetlbfs.a
